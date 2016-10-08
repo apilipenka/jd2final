@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy/>
+
+    <import resource="classpath*:beans-dao.xml"/>
+
+    <context:component-scan base-package="by.pwt.pilipenko.jd2final.services"/>
+
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
+
+    <bean id="commandService" class="by.pwt.pilipenko.jd2final.services.CommandService"/>
+    <bean id="bankService" class="by.pwt.pilipenko.jd2final.services.BankService"/>
+    <bean id="currencyService" class="by.pwt.pilipenko.jd2final.services.CurrencyService"/>
+    <bean id="exchangeRateService" class="by.pwt.pilipenko.jd2final.services.ExchangeRateService"/>
+    <bean id="agreementService" class="by.pwt.pilipenko.jd2final.services.AgreementService"/>
+    <bean id="userService" class="by.pwt.pilipenko.jd2final.services.UserService"/>
+    <bean id="userRoleService" class="by.pwt.pilipenko.jd2final.services.UserRoleService"/>
+    <bean id="accountService" class="by.pwt.pilipenko.jd2final.services.AccountService"/>
+    <bean id="cardService" class="by.pwt.pilipenko.jd2final.services.CardService"/>
+    <bean id="transferService" class="by.pwt.pilipenko.jd2final.services.TransferService"/>
+
+
+</beans>
