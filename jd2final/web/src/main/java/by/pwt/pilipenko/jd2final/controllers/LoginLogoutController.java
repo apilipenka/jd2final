@@ -45,7 +45,7 @@ public class LoginLogoutController {
     public String register(ModelMap model) {
         model.addAttribute("command", "register");
         model.addAttribute("roles", roleService.getAllEntities());
-        return "new-user";
+        return "register";
 
     }
 
