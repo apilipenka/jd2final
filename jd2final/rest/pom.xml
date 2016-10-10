@@ -14,15 +14,28 @@
     <packaging>war</packaging>
     <name>rest</name>
     <url>http://maven.apache.org</url>
+    <build>
+        <finalName>rest</finalName>
+    </build>
+
     <dependencies>
+        <dependency>
+            <groupId>by.pwt.pilipenko</groupId>
+            <artifactId>dao</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>by.pwt.pilipenko</groupId>
             <artifactId>services</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
-    <build>
-        <finalName>rest</finalName>
-    </build>
+
 </project>
