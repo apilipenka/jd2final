@@ -1,14 +1,14 @@
 package by.pwt.pilipenko.jd2final.controllers;
 
+import by.pwt.pilipenko.jd2final.dao.VO.UserVO;
 import by.pwt.pilipenko.jd2final.dao.entities.User;
 import by.pwt.pilipenko.jd2final.dao.entities.UserRole;
 import by.pwt.pilipenko.jd2final.services.interfaces.IUserRoleService;
 import by.pwt.pilipenko.jd2final.services.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.DateFormat;
@@ -28,27 +28,40 @@ public class UserController {
     IUserRoleService userRoleService;
 
     @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
-    public ModelAndView insertUser(@RequestParam("login") String login, @RequestParam("firstName") String firstName, @RequestParam("lastName")String lastName,
-                                   @RequestParam("password")String password, @RequestParam("personalNumber")String personalNumber,
-                                   @RequestParam("role")int userRoleId, @RequestParam("birthDate")String birthDateStr) throws ParseException {
-        User user = new User();
-        user.setLogin(login);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setPassword(password);
-        user.setPersonalNumber(personalNumber);
+    //public ModelAndView insertUser(@RequestParam("login") String login, @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
+    //                               @RequestParam("password") String password, @RequestParam("personalNumber") String personalNumber,
+     //                              @RequestParam("role") int userRoleId, @RequestParam("birthDate") String birthDateStr) {
+    @ResponseStatus(value= HttpStatus.OK)
+    public ModelAndView insertUser(@RequestBody UserVO userVO) {
+        try {
+            User user = new User();
+            user.setLogin(userVO.getLogin());
+            user.setFirstName(userVO.getFirstName());
+            user.setLastName(userVO.getLastName());
+            user.setPassword(userVO.getPassword());
+            user.setPersonalNumber(userVO.getPersonalNumber());
 
-        UserRole userRole = userRoleService.getEntity(userRoleId);
-        user.setUserRole(userRole);
+            UserRole userRole = userRoleService.getEntity(userVO.getUserRoleID());
+            user.setUserRole(userRole);
 
-        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date birthDate = format.parse(birthDateStr);
-        user.setBirthDate(birthDate);
+            DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            Date birthDate = format.parse(userVO.getBirthDate());
+
+            user.setBirthDate(birthDate);
 
 
-        userService.insertEntity(user);
-        ModelAndView modelAndView = new ModelAndView("login");
-        return   modelAndView;
+            userService.insertEntity(user);
+            ModelAndView modelAndView = new ModelAndView("redirect:login");
+            return modelAndView;
+
+        } catch (ParseException e) {
+            ModelAndView modelAndView = new ModelAndView("register");
+            modelAndView.addObject("command", "register");
+            modelAndView.addObject("roles", userRoleService.getAllEntities());
+            modelAndView.addObject("error", e.getMessage());
+            return modelAndView;
+        }
+
 
     }
 }

@@ -5,6 +5,7 @@ package by.pwt.pilipenko.jd2final.controllers;
  */
 import java.security.Principal;
 
+import by.pwt.pilipenko.jd2final.dao.VO.UserVO;
 import by.pwt.pilipenko.jd2final.services.interfaces.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,8 @@ public class LoginLogoutController {
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String register(ModelMap model) {
         model.addAttribute("command", "register");
+        UserVO userVO = new UserVO();
+        model.addAttribute("user", userVO);
         model.addAttribute("roles", roleService.getAllEntities());
         return "register";
 

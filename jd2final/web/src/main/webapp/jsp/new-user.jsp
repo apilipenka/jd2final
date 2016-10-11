@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
@@ -7,8 +10,11 @@
 </head>
 <body>
 <div class="container">
-    <form action="<c:url value='insertUser'/>" method="post" role="form"
-          data-toggle="validator">
+
+
+
+
+    <s:form id="personForm" name="personForm" action="" modelAttribute="user" method="post">
 
 
         <c:if test="${empty action}">
@@ -42,54 +48,61 @@
         </c:if>
         <div class="form-group col-xs-6">
             <label for="id" class="control-label col-xs-6">Id:</label>
-            <input
-                    type="text" name="id" id="id" class="form-control"
-                    value="${user.getId()}"
-                    readonly/>
+            <s:errors path="id" cssStyle="color: red" />
+            <s:input type="text" name="id" id="id" class="form-control" readonly="true"  path="id"/>
+
             <label for="login" class="control-label col-xs-6">Login:</label>
-            <input
-                    type="text" name="login" id="login" class="form-control"
-                    value="${user.login}" required="true"/>
+            <s:errors path="login" cssStyle="color: red" />
+            <s:input type="text" name="login" id="login" class="form-control" path="login" required="true"/>
+
             <label
                     for="firstName" class="control-label col-xs-6">First name:</label>
-            <input type="text" name="firstName" id="firstName"
-                   class="form-control" value="${user.firstName}" required="true"/>
+            <s:errors path="firstName" cssStyle="color: red" />
+            <s:input type="text" name="login" id="login" class="form-control" path="firstName" required="true"/>
+
 
             <label for="lastName" class="control-label col-xs-6">Last
                 name:</label>
-            <input type="text" name="lastName" id="lastName"
-                   class="form-control" value="${user.lastName}" required="true"/>
+            <s:errors path="lastName" cssStyle="color: red" />
+            <s:input type="text" name="lastName" id="lastName" class="form-control" path="lastName" required="true"/>
+
+
 
             <label for="password" class="control-label col-xs-6">Password:</label>
             <%-- <input type="text"  pattern="^\d{2}-\d{2}-\d{4}$" name="birthDate" id="birthdate" class="form-control" value="${user.birthDate}" maxlength="10" placeholder="dd-MM-yyy" required="true"/> --%>
-            <input type="text" name="password" id="password"
-                   class="form-control" value="${user.password}" required="true"/>
+            <s:errors path="password" cssStyle="color: red" />
+            <s:input type="text" name="password" id="password" class="form-control" path="password" required="true"/>
+
+
+
 
             <label for="personalNumber" class="control-label col-xs-6">Personal
                 number:</label>
-            <input type="text" name="personalNumber" id="personalNumber"
-                   class="form-control" value="${user.personalNumber}"
-                   required="true"/>
+            <s:errors path="personalNumber" cssStyle="color: red" />
+            <s:input type="text" name="personalNumber" id="personalNumber" class="form-control" path="personalNumber" required="true"/>
+
+
 
             <label for="birthDate" class="control-label col-xs-6">Birth date:</label>
-            <input type="text" name="birthDate" id="birthDate"
-                   class="form-control" value="${user.birthDate}"
-                   required="true"/>
+            <s:errors path="birthDate" cssStyle="color: red" />
+            <s:input type="text" name="birthDate" id="birthDate" class="form-control" path="birthDate" required="true"/>
+
+
 
             <label for="role"
                    class="control-label col-xs-6">Role:</label>
-            <select name="role"
-                    id="role" class="form-control">
-                <c:forEach items="${roles}" var="roles">
+            <br></br>
+            <s:errors path="userRoleID" cssStyle="color: red" />
+            <form:select path="userRoleID" id="role" name="role" class="form-control">
+                <form:options items="${roles}" />
+            </form:select>
 
-                    <option value="${roles.getId()}" ${roles.getId() == user.userRoleID ? 'selected="selected"' : ''}>${roles.getDescription()}</option>
 
-                </c:forEach>
 
-            </select> <br></br>
+            <br></br>
             <button type="submit" class="btn btn-primary  btn-md">Accept</button>
         </div>
-    </form>
+    </s:form>
 </div>
 </body>
 </html>
