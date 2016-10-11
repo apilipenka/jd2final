@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
+
 <html>
 <head>
     <title>Welcome admin</title>
@@ -12,6 +17,12 @@
     <h3>Welcome</h3>
     <hr/>
     <br></br>
+
+    <p><spring:message code="label.registration"/></p>
+    <p><spring:message code="label.login"/></p>
+
+    <br></br>
+
     <c:url value="/j_spring_security_logout" var="logoutUrl" />
     <ul>
         <li class="dropdown" style="list-style: none;">
