@@ -21,7 +21,7 @@
     </definition>
 
     <definition extends="defaultLoginTemplate" name="register">
-        <put-attribute name="body" value="/jsp/new-user.jsp"/>
+        <put-attribute name="body" value="/jsp/user/new-user.jsp"/>
     </definition>
 
 
@@ -38,7 +38,7 @@
     </definition>
 
     <definition extends="defaultTemplate" name="new-user">
-        <put-attribute name="body" value="/jsp/new-user.jsp"/>
+        <put-attribute name="body" value="/jsp/user/new-user.jsp"/>
     </definition>
 
 

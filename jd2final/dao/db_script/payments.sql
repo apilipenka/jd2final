@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `fk_Accounts_Agreements1_idx` (`agreement_id`),
   CONSTRAINT `fk_Accounts_Agreements1` FOREIGN KEY (`agreement_id`) REFERENCES `agreements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Accounts_Currencies1` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.accounts: ~1 rows (приблизительно)
 DELETE FROM `accounts`;
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `agreements` (
   KEY `fk_Agreements_Users1_idx` (`user_ID`),
   CONSTRAINT `fk_Agreements_Banks1` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Agreements_Users1` FOREIGN KEY (`user_ID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.agreements: ~1 rows (приблизительно)
 DELETE FROM `agreements`;
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `banks` (
   `unn` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNN_UNIQUE` (`unn`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.banks: ~2 rows (приблизительно)
 DELETE FROM `banks`;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `cards` (
   UNIQUE KEY `number_UNIQUE` (`number`),
   KEY `fk_Cards_Accounts1_idx` (`accounts_id`),
   CONSTRAINT `fk_Cards_Accounts1` FOREIGN KEY (`accounts_id`) REFERENCES `accounts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.cards: ~0 rows (приблизительно)
 DELETE FROM `cards`;
@@ -108,14 +108,15 @@ CREATE TABLE IF NOT EXISTS `commands` (
   `comment` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `COMMAND_UNIQUE` (`command`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы payments.commands: ~2 rows (приблизительно)
+-- Дамп данных таблицы payments.commands: ~3 rows (приблизительно)
 DELETE FROM `commands`;
 /*!40000 ALTER TABLE `commands` DISABLE KEYS */;
 INSERT INTO `commands` (`id`, `command`, `url`, `label`, `comment`) VALUES
-	(1, 'USERLIST', '/jsp/user-list.jsp', 'Edit users', 'Edit users'),
-	(2, 'COMMANDLIST', '/jsp/command-list.jsp', 'Edit commands', 'Edit commands');
+	(3, 'USER_ROLE', 'USER_ROLE', 'USER_ROLE', 'USER_ROLE'),
+	(4, 'ACCOUNT_ROLE', 'ACCOUNT_ROLE', 'ACCOUNT_ROLE', 'ACCOUNT_ROLE'),
+	(5, 'CURRENCY_ROLE', 'CURRENCY_ROLE', 'CURRENCY_ROLE', 'CURRENCY_ROLE');
 /*!40000 ALTER TABLE `commands` ENABLE KEYS */;
 
 
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   `name` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `currency_uk` (`mnemo_code`,`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.currencies: ~1 rows (приблизительно)
 DELETE FROM `currencies`;
@@ -148,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `exchange_rates` (
   UNIQUE KEY `exchange_rate_uk` (`currency_id`,`target_currency_id`,`rate_date`),
   KEY `fk_exchange_rates_Curremcies1_idx` (`currency_id`),
   CONSTRAINT `fk_exchange_rates_Curremcies1` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.exchange_rates: ~1 rows (приблизительно)
 DELETE FROM `exchange_rates`;
@@ -193,9 +194,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `personal_number_UNIQUE` (`personal_number`),
   KEY `FK_users_user_role_commands` (`user_role_id`),
   CONSTRAINT `FK_users_user_role_commands` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы payments.users: ~1 rows (приблизительно)
+-- Дамп данных таблицы payments.users: ~2 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `personal_number`, `first_name`, `last_name`, `birth_date`, `login`, `password`, `user_role_id`) VALUES
@@ -210,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.user_roles: ~2 rows (приблизительно)
 DELETE FROM `user_roles`;
@@ -226,15 +227,20 @@ CREATE TABLE IF NOT EXISTS `user_role_commands` (
   `user_role_id` int(11) NOT NULL,
   `command_id` int(11) NOT NULL,
   PRIMARY KEY (`user_role_id`,`command_id`),
-  UNIQUE KEY `user_role_id` (`user_role_id`),
-  UNIQUE KEY `command_id` (`command_id`),
-  CONSTRAINT `FK_jmhv14s6pqup4djj5umm234he` FOREIGN KEY (`command_id`) REFERENCES `commands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_ny7tv659tlr9qcx2cdol6lvxt` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  UNIQUE KEY `user_role_id` (`user_role_id`,`command_id`),
+  KEY `FK_user_role_commands_commands` (`command_id`),
+  CONSTRAINT `FK_user_role_commands_commands` FOREIGN KEY (`command_id`) REFERENCES `commands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_user_role_commands_user_roles` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.user_role_commands: ~0 rows (приблизительно)
 DELETE FROM `user_role_commands`;
 /*!40000 ALTER TABLE `user_role_commands` DISABLE KEYS */;
+INSERT INTO `user_role_commands` (`user_role_id`, `command_id`) VALUES
+	(1, 3),
+	(1, 4),
+	(2, 4),
+	(1, 5);
 /*!40000 ALTER TABLE `user_role_commands` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

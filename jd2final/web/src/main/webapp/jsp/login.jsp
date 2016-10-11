@@ -18,21 +18,23 @@
     <c:set var="userType" value="GUEST" scope="session"/>
     <c:if test="${not empty error}">
         <div class="alert alert-success">
-                ${error}
+            <spring:message code="${error}"/>
+
+
         </div>
     </c:if>
 
     <c:if test="${not empty message}">
         <div class="alert alert-success">
-                ${message}
+            <spring:message code="${message}"/>
         </div>
     </c:if>
-    <c:if test="${not empty wrongAction}">
+    <c:if test="${not empty wrongActions}">
         <div class="alert alert-success">
                 ${wrongAction}
         </div>
     </c:if>
-    <c:if test="${not empty nullPage}">
+    <c:if test="${not empty nullPages}">
         <div class="alert alert-success">
                 ${nullPage}
         </div>
@@ -43,7 +45,8 @@
                type="text" name="login" value="" placeholder="<spring:message code="placeholder.login"/>"/> <br/>
         <br/>
         <input class="control col-xs-6"
-               type="password" name="password" value="" placeholder="<spring:message code="placeholder.password"/>"/> <br/>
+               type="password" name="password" value="" placeholder="<spring:message code="placeholder.password"/>"/>
+        <br/>
         <br/>
         <input type="submit" value="<spring:message code="label.login"/>" class="btn btn-info col-xs-6"/>
         <br/>
@@ -54,8 +57,6 @@
     <hr/>
     Links for guest...
     <br/> Debug info - session = ${sessionScope}
-
-
 
 
 </div>
