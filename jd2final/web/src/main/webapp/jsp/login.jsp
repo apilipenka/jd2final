@@ -1,4 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <html>
@@ -10,7 +13,7 @@
 </head>
 <body>
 <div class="container col-md-4" style="float: none">
-    <h2>Login</h2>
+    <h2><spring:message code="login.title"/></h2>
     <br/>
     <c:set var="userType" value="GUEST" scope="session"/>
     <c:if test="${not empty error}">
@@ -37,20 +40,22 @@
     <form name="loginForm" method="POST" action="<c:url value='login'/>">
         <input type="hidden" name="command" value="login"/>
         <input class="control col-xs-6"
-               type="text" name="login" value="" placeholder="Login"/> <br/>
+               type="text" name="login" value="" placeholder="<spring:message code="placeholder.login"/>"/> <br/>
         <br/>
         <input class="control col-xs-6"
-               type="password" name="password" value="" placeholder="Password"/> <br/>
+               type="password" name="password" value="" placeholder="<spring:message code="placeholder.password"/>"/> <br/>
         <br/>
-        <input type="submit" value="Log in" class="btn btn-info col-xs-6"/>
+        <input type="submit" value="<spring:message code="label.login"/>" class="btn btn-info col-xs-6"/>
         <br/>
         <br/>
         <!--<a href="${pageContext.request.contextPath}/jsp/new-user.jsp?source=Login">Register</a>-->
-        <a href="${pageContext.request.contextPath}/register">Register</a>
+        <a href="${pageContext.request.contextPath}/register"><spring:message code="label.registration"/></a>
     </form>
     <hr/>
     Links for guest...
     <br/> Debug info - session = ${sessionScope}
+
+
 
 
 </div>
