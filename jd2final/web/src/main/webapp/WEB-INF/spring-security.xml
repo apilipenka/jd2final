@@ -8,6 +8,14 @@
     <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/resources/**" access="permitAll" />
         <intercept-url pattern="/admin*" access="hasAuthority('ADMIN')" />
+        <intercept-url pattern="/user*" access="hasAuthority('ADMIN')" />
+        <intercept-url pattern="/command*" access="hasAuthority('ADMIN')" />
+        <intercept-url pattern="/account*" access="hasAuthority('MANAGER')" />
+        <intercept-url pattern="/agreement*" access="hasAuthority('MANAGER')" />
+        <intercept-url pattern="/bank*" access="hasAuthority('MANAGER')" />
+        <intercept-url pattern="/card*" access="hasAuthority('MANAGER')" />
+        <intercept-url pattern="/currency*" access="hasAuthority('MANAGER')" />
+        <intercept-url pattern="/exchangerate*" access="hasAuthority('MANAGER')" />
 
         <form-login login-page="/login" default-target-url="/helloworld"
                     authentication-failure-url="/loginError"  username-parameter="login" password-parameter="password"/>
