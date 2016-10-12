@@ -87,7 +87,7 @@ public class UserController {
         } catch (ParseException e) {
             errormessage = "error.parseexception";
         } catch (DataIntegrityViolationException e) {
-            errormessage = "error.duplicate,user";
+            errormessage = "error.duplicate.user";
         }
 
         httpSession.removeAttribute("message");
@@ -109,7 +109,7 @@ public class UserController {
 
 
         if (command == null) {
-            command = request.getParameter("userID");
+            command = request.getParameter("command");
         }
         if (command != null && command.toString().equals("register"))
             return new ModelAndView("redirect:/login");
@@ -204,17 +204,6 @@ public class UserController {
 
         userService.deleteEntity(new Integer(name.toString()));
         httpSession.setAttribute("message", "user.delete.success");
-
-        name = null;
-        name = request.getAttribute("userID");
-
-        if (name == null) {
-            name = request.getParameter("userID");
-
-        }
-        if (name != null)
-         httpSession.setAttribute("name", name);
-
 
         return modelAndView;
     }

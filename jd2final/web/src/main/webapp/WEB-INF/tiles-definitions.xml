@@ -45,5 +45,12 @@
         <put-attribute name="body" value="/jsp/user/user-list.jsp"/>
     </definition>
 
+    <definition extends="defaultTemplate" name="new-account">
+        <put-attribute name="body" value="/jsp/account/new-account.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="account-list">
+        <put-attribute name="body" value="/jsp/account/account-listp.jsp"/>
+    </definition>
 
 </tiles-definitions>

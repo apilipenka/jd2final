@@ -17,9 +17,9 @@
         </li>
 
 
-                <li><a href="${pageContext.request.contextPath}/controller?command=USERROLELIST">Edit user roles</a>
+                <li><a href="${pageContext.request.contextPath}/controller?command=USERROLELIST"><spring:message code="menu.edituserroles.label"/></a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/user-list">Edit users</a></li>
+                <li><a href="${pageContext.request.contextPath}/user-list"><spring:message code="menu.editusers.label"/></a></li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=COMMANDLIST">Edit commands</a></li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=USERROLECOMMANDLIST">Edit user role
                     commands</a></li>
@@ -29,7 +29,7 @@
                 </li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=AGREEMENTLIST">Edit agreement</a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=ACCOUNTLIST">Edit account</a>
+                <li><a href="${pageContext.request.contextPath}/account-list"><spring:message code="menu.editaccounts.label"/></a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath}/controller?command=ACCOUNTLISTWITHPAGINATION&pg=1&rpp=1">Edit

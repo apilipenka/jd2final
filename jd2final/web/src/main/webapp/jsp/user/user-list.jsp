@@ -88,7 +88,7 @@
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="${pageContext.request.contextPath}/user/new-user.jsp?source=UserList">
+    <form action="${pageContext.request.contextPath}/insertUser">
         <br></br>
         <button type="submit" class="btn btn-primary  btn-md"><spring:message code="label.newuser"/></button>
     </form>
