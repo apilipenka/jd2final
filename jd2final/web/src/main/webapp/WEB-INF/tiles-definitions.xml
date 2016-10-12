@@ -53,4 +53,13 @@
         <put-attribute name="body" value="/jsp/account/account-listp.jsp"/>
     </definition>
 
+    <definition extends="defaultTemplate" name="new-bank">
+        <put-attribute name="body" value="/jsp/bank/new-bank.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="bank-list">
+        <put-attribute name="body" value="/jsp/bank/bank-list.jsp"/>
+    </definition>
+
+
 </tiles-definitions>

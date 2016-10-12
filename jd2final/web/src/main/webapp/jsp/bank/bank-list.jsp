@@ -1,39 +1,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
-    <script src="<c:url value="/js/jquery-1.12.4.min.js" />"></script>
-    <script src="<c:url value="/js/bootstrap.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.12.4.min.js" />"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Banks</h2>
-    <ul>
-        <li class="dropdown" style="list-style: none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-
-
-                <c:forEach items="${sessionScope.user.getUserRole().getCommands()}" var="command">
-                    <li><a href="${pageContext.request.contextPath}/${command.getUrl()}">${command.getLabel()}</a>
-                    </li>
-                </c:forEach>
-
-                <li class="divider"></li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-    <!--Search Form -->
-    <form action="controller" method="get" id="seachBankForm" role="form">
+    <h2><spring:message code="banks.title"/></h2>
+        <!--Search Form -->
+    <form action="bank-list" method="get" id="seachBankForm" role="form">
         <input type="hidden" id="command" name="command" value="BANKLIST">
         <div class="form-group col-xs-5">
             <input type="text" name="bankName" id="bankName" class="form-control"
-                   placeholder="Type the Name of the bank"/>
+                   placeholder="<spring:message code="placeholder.banksearch"/>"/>
         </div>
         <button type="submit" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Search
+            <span class="glyphicon glyphicon-search"></span> <spring:message code="label.search"/>
         </button>
         <br></br>
         <br></br>
@@ -41,7 +27,7 @@
 
     <c:if test="${not empty message}">
         <div class="alert alert-success">
-                ${message}
+            <spring:message code="${message}"/>
         </div>
     </c:if>
     <form action="controller" method="post" id="bankForm" role="form">
@@ -53,8 +39,8 @@
                     <thead>
                     <tr>
                         <td>#</td>
-                        <td>Name</td>
-                        <td>UNN</td>
+                        <td><spring:message code="label.name"/></td>
+                        <td><spring:message code="label.unn"/></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -65,12 +51,12 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="controller?bankID=${bank.id}&command=EDITBANK">${bank.id}</a>
+                                <a href="new-bank?bankID=${bank.id}">${bank.id}</a>
                             </td>
                             <td>${bank.name}</td>
                             <td>${bank.UNN}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/controller?command=REMOVEBANK&bankID=${bank.id}"
+                                <a href="${pageContext.request.contextPath}/deletebank?bankID=${bank.id}"
                                    id="remove">
                                     <span class="glyphicon glyphicon-trash"/>
                                 </a>
@@ -83,15 +69,15 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No bank found matching your search criteria
+                    <spring:message code="label.banknotfound"/>
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
 
-    <form action="${pageContext.request.contextPath}/jsp/bank/new-bank.jsp">
+    <form action="${pageContext.request.contextPath}/insertBank">
         <br></br>
-        <button type="submit" class="btn btn-primary  btn-md">New bank</button>
+        <button type="submit" class="btn btn-primary  btn-md"><spring:message code="label.newbank"/></button>
     </form>
 </div>
 </body>
