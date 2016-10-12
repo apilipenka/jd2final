@@ -28,13 +28,18 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   KEY `fk_Accounts_Agreements1_idx` (`agreement_id`),
   CONSTRAINT `fk_Accounts_Agreements1` FOREIGN KEY (`agreement_id`) REFERENCES `agreements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_Accounts_Currencies1` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.accounts: ~1 rows (приблизительно)
 DELETE FROM `accounts`;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
 INSERT INTO `accounts` (`id`, `number`, `amount`, `currency_id`, `agreement_id`) VALUES
-	(1, '13', 12, 3, 1);
+	(1, '13', 12, 3, 1),
+	(2, '22', 11, 3, 1),
+	(3, '212', 1122, 3, 1),
+	(4, '11', 123, 3, 1),
+	(6, '2', 1, 3, 1),
+	(7, '1112', 120, 3, 1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 
 
@@ -69,14 +74,15 @@ CREATE TABLE IF NOT EXISTS `banks` (
   `unn` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNN_UNIQUE` (`unn`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы payments.banks: ~2 rows (приблизительно)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`id`, `name`, `unn`) VALUES
 	(1, 'Agorprom', '123341'),
-	(2, 'belarus', '123456');
+	(2, 'belarus', '123456'),
+	(4, 'testBank', '1234441');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 
@@ -192,11 +198,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_number_UNIQUE` (`personal_number`),
+  UNIQUE KEY `login_unique` (`login`),
   KEY `FK_users_user_role_commands` (`user_role_id`),
   CONSTRAINT `FK_users_user_role_commands` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы payments.users: ~2 rows (приблизительно)
+-- Дамп данных таблицы payments.users: ~3 rows (приблизительно)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `personal_number`, `first_name`, `last_name`, `birth_date`, `login`, `password`, `user_role_id`) VALUES
@@ -233,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `user_role_commands` (
   CONSTRAINT `FK_user_role_commands_user_roles` FOREIGN KEY (`user_role_id`) REFERENCES `user_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы payments.user_role_commands: ~0 rows (приблизительно)
+-- Дамп данных таблицы payments.user_role_commands: ~4 rows (приблизительно)
 DELETE FROM `user_role_commands`;
 /*!40000 ALTER TABLE `user_role_commands` DISABLE KEYS */;
 INSERT INTO `user_role_commands` (`user_role_id`, `command_id`) VALUES
