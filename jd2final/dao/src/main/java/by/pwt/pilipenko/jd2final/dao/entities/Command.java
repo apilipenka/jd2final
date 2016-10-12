@@ -109,7 +109,7 @@ public class Command extends AbstractEntity {
     public CommandVO createCommandVO() {
         CommandVO commandVO = new CommandVO();
         commandVO.setId(getId());
-        commandVO.setCommand(command);
+        commandVO.setCommandp(command);
         commandVO.setUrl(url);
         commandVO.setLabel(label);
         commandVO.setComment(comment);

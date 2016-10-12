@@ -55,13 +55,15 @@ public class AccountController {
                 if (account == null) {
                     account = new Account();
 
-                    account.setNumber(accountVO.getNumber());
-                    account.setAmount(new Double(accountVO.getAmount()));
-                    account.setAgreement(agreementService.getEntity(accountVO.getAgreementID()));
-                    account.setCurrency(currencyService.getEntity(accountVO.getCurrencyID()));
+
 
                     httpSession.setAttribute("message", "account.add.success");
                 }
+
+                account.setNumber(accountVO.getNumber());
+                account.setAmount(new Double(accountVO.getAmount()));
+                account.setAgreement(agreementService.getEntity(accountVO.getAgreementID()));
+                account.setCurrency(currencyService.getEntity(accountVO.getCurrencyID()));
                 accountService.updateEntity(account);
 
             }

@@ -54,11 +54,60 @@
     </definition>
 
     <definition extends="defaultTemplate" name="new-bank">
-        <put-attribute name="body" value="/jsp/bank/new-bank.jsp"/>
-    </definition>
+    <put-attribute name="body" value="/jsp/bank/new-bank.jsp"/>
+</definition>
 
     <definition extends="defaultTemplate" name="bank-list">
         <put-attribute name="body" value="/jsp/bank/bank-list.jsp"/>
+    </definition>
+
+
+    <definition extends="defaultTemplate" name="new-card">
+        <put-attribute name="body" value="/jsp/card/new-card.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="card-list">
+        <put-attribute name="body" value="/jsp/card/card-list.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="new-currency">
+        <put-attribute name="body" value="/jsp/currency/new-currency.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="currency-list">
+        <put-attribute name="body" value="/jsp/currency/currency-list.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="new-agreement">
+        <put-attribute name="body" value="/jsp/agreement/new-agreement.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="agreement-list">
+        <put-attribute name="body" value="/jsp/agreement/agreement-list.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="new-command">
+        <put-attribute name="body" value="/jsp/command/new-command.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="command-list">
+        <put-attribute name="body" value="/jsp/command/command-list.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="new-userRole">
+        <put-attribute name="body" value="/jsp/userrole/new-userRole.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="userRole-list">
+        <put-attribute name="body" value="/jsp/userrole/userRole-list.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="new-exchangeRate">
+        <put-attribute name="body" value="/jsp/exchangerate/new-exchangeRate.jsp"/>
+    </definition>
+
+    <definition extends="defaultTemplate" name="exchangeRate-list">
+        <put-attribute name="body" value="/jsp/exchangerate/exchangeRate-list.jsp"/>
     </definition>
 
 

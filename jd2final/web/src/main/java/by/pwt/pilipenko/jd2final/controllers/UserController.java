@@ -49,21 +49,24 @@ public class UserController {
                 httpSession.setAttribute("message", "user.update.success");
                 if (user==null) {
                     user = new User();
-                    user.setLogin(userVO.getLogin());
-                    user.setFirstName(userVO.getFirstName());
-                    user.setLastName(userVO.getLastName());
-                    user.setPassword(userVO.getPassword());
-                    user.setPersonalNumber(userVO.getPersonalNumber());
 
-                    UserRole userRole = userRoleService.getEntity(userVO.getUserRoleID());
-                    user.setUserRole(userRole);
-
-                    DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                    Date birthDate = format.parse(userVO.getBirthDate());
-
-                    user.setBirthDate(birthDate);
                     httpSession.setAttribute("message", "user.add.success");
                 }
+
+
+                user.setLogin(userVO.getLogin());
+                user.setFirstName(userVO.getFirstName());
+                user.setLastName(userVO.getLastName());
+                user.setPassword(userVO.getPassword());
+                user.setPersonalNumber(userVO.getPersonalNumber());
+
+                UserRole userRole = userRoleService.getEntity(userVO.getUserRoleID());
+                user.setUserRole(userRole);
+
+                DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                Date birthDate = format.parse(userVO.getBirthDate());
+
+                user.setBirthDate(birthDate);
                 userService.updateEntity(user);
 
 

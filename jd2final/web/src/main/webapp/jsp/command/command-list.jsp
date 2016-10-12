@@ -1,39 +1,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
-    <script src="<c:url value="/js/jquery-1.12.4.min.js" />"></script>
-    <script src="<c:url value="/js/bootstrap.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.12.4.min.js" />"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
+
 
 <body>
 <div class="container">
-    <h2>Commands</h2>
-    <ul>
-        <li class="dropdown" style="list-style: none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-            <ul class="dropdown-menu">
+    <h2><spring:message code="commands.title"/></h2>
 
-
-                <c:forEach items="${sessionScope.user.getUserRole().getCommands()}" var="command">
-                    <li><a href="${pageContext.request.contextPath}/${command.getUrl()}">${command.getLabel()}</a>
-                    </li>
-                </c:forEach>
-
-                <li class="divider"></li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
     <!--Search Form -->
-    <form action="controller" method="get" id="seachCommandForm" role="form">
+    <form action="command-list" method="get" id="seachCommandForm" role="form">
         <input type="hidden" id="command" name="command" value="COMMANDLIST">
         <div class="form-group col-xs-5">
             <input type="text" name="commandName" id="commandName" class="form-control"
-                   placeholder="Type the Name of the command"/>
+                   placeholder="<spring:message code="placeholder.commandsearch"/>"/>
         </div>
         <button type="submit" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Search
+            <span class="glyphicon glyphicon-search"></span> <spring:message code="label.search"/>
         </button>
         <br></br>
         <br></br>
@@ -41,10 +29,10 @@
 
     <c:if test="${not empty message}">
         <div class="alert alert-success">
-                ${message}
+            <spring:message code="${message}"/>
         </div>
     </c:if>
-    <form action="controller" method="post" id="commandForm" role="form">
+    <form action="command-list" method="get" id="commandForm" role="form">
         <input type="hidden" id="commandID" name="commandID">
         <input type="hidden" id="command" name="command">
         <c:choose>
@@ -53,10 +41,10 @@
                     <thead>
                     <tr>
                         <td>#</td>
-                        <td>Command</td>
-                        <td>URL</td>
-                        <td>Label</td>
-                        <td>Comment</td>
+                        <td><spring:message code="label.command"/></td>
+                        <td><spring:message code="label.url"/></td>
+                        <td><spring:message code="label.label"/></td>
+                        <td><spring:message code="label.comment"/></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -67,14 +55,14 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="controller?commandID=${commando1.id}&command=EDITCOMMAND">${commando1.id}</a>
+                                <a href="editcommand?commandID=${commando1.id}">${commando1.id}</a>
                             </td>
-                            <td>${commando1.command}</td>
+                            <td>${commando1.commandp}</td>
                             <td>${commando1.url}</td>
                             <td>${commando1.label}</td>
                             <td>${commando1.comment}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/controller?command=REMOVECOMMAND&commandID=${commando1.id}"
+                                <a href="${pageContext.request.contextPath}/deletecommand?commandID=${commando1.id}"
                                    id="remove">
                                     <span class="glyphicon glyphicon-trash"/>
                                 </a>
@@ -87,15 +75,17 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No commnd found matching your search criteria
+                    <spring:message code="label.commandnotfound"/>
+
+
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
 
-    <form action="${pageContext.request.contextPath}/jsp/command/new-command.jspmand.jsp">
+    <form action="${pageContext.request.contextPath}/insertCommand">
         <br></br>
-        <button type="submit" class="btn btn-primary  btn-md">New command</button>
+        <button type="submit" class="btn btn-primary  btn-md"><spring:message code="label.newcommand"/></button>
     </form>
 </div>
 </body>

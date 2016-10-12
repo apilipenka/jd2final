@@ -7,14 +7,14 @@ public class CurrencyVO extends EntityVO {
 
     private static final long serialVersionUID = 3561250473466586712L;
     private String mnemoCode;
-    private int code;
+    private String code;
     private String name;
 
     public CurrencyVO() {
         super();
     }
 
-    public CurrencyVO(int id, String mnemoCode, int code, String name) {
+    public CurrencyVO(int id, String mnemoCode, String code, String name) {
         super(id);
         this.mnemoCode = mnemoCode;
         this.code = code;
@@ -29,11 +29,11 @@ public class CurrencyVO extends EntityVO {
         this.mnemoCode = mnemoCode;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

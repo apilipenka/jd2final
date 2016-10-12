@@ -1,42 +1,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <html>
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
-    <script src="<c:url value="/js/jquery-1.12.4.min.js" />"></script>
-    <script src="<c:url value="/js/bootstrap.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.12.4.min.js" />"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Exchange rates</h2>
-    <ul>
-        <li class="dropdown" style="list-style: none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-
-
-                <c:forEach items="${sessionScope.user.getUserRole().getCommands()}" var="command">
-                    <li><a href="${pageContext.request.contextPath}/${command.getUrl()}">${command.getLabel()}</a>
-                    </li>
-                </c:forEach>
-
-                <li class="divider"></li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
+    <h2><spring:message code="exchangerates.title"/></h2>
     <!--Search Form -->
     <form action="controller" method="get" id="seachExchangeRateForm" role="form">
         <input type="hidden" id="command" name="command" value="EXCHANGERATELIST">
         <div class="form-group col-xs-5">
             <input type="text" name="exchangeRateName" id="exchangeRateName" class="form-control"
-                   placeholder="Type the currency mnemocode of the exchange rate"/>
+                   placeholder="<spring:message code="placeholder.exchangeratesearch"/>"/>
         </div>
         <button type="submit" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Search
+            <span class="glyphicon glyphicon-search"></span> <spring:message code="label.search"/>
         </button>
         <br></br>
         <br></br>
@@ -56,10 +43,10 @@
                     <thead>
                     <tr>
                         <td>#</td>
-                        <td>Rate date</td>
-                        <td>Rate</td>
-                        <td>Currency</td>
-                        <td>Target currency</td>
+                        <td><spring:message code="label.ratedate"/></td>
+                        <td><spring:message code="label.rate"/></td>
+                        <td><spring:message code="label.currency"/></td>
+                        <td><spring:message code="label.targetcurrency"/></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -70,14 +57,14 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="controller?exchangeRateID=${exchangeRate.id}&command=EDITEXCHANGERATE&source=exchangeRatelist">${exchangeRate.id}</a>
+                                <a href="editexchangeRate?exchangeRateID=${exchangeRate.id}">${exchangeRate.id}</a>
                             </td>
                             <td>${exchangeRate.rateDate}</td>
                             <td>${exchangeRate.rate}</td>
                             <td>${exchangeRate.currencyMnemoCode}</td>
                             <td>${exchangeRate.targetCurrencyMnemoCode}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/controller?command=REMOVEEXCHANGERATE&exchangeRateID=${exchangeRate.id}">
+                                <a href="${pageContext.request.contextPath}/deleteexchangerate?exchangeRateID=${exchangeRate.id}">
                                     <span class="glyphicon glyphicon-trash"/>
                                 </a>
 
@@ -89,14 +76,15 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No exchange rate found matching your search criteria
+                    <spring:message code="label.exchangeratenotfound"/>
+
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
-    <form action="${pageContext.request.contextPath}/jsp/exchangerate/new-exchangeRate.jsp?source=exchangeRateList">
+    <form action="${pageContext.request.contextPath}/insertExchangeRate">
         <br></br>
-        <button type="submit" class="btn btn-primary  btn-md">New exchange rate</button>
+        <button type="submit" class="btn btn-primary  btn-md"><spring:message code="label.newexchangerate"/></button>
     </form>
 </div>
 </body>

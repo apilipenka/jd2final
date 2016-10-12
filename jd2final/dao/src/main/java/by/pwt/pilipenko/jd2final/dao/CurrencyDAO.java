@@ -28,10 +28,12 @@ public class CurrencyDAO extends AbstractEntityDAO<Currency> implements ICurrenc
 
     @Override
     public List<Currency> findEntityByEntity(Currency entity) {
-        Query query = getSession().createQuery("from Currency where mnemoCode = :mnemoCode");
+        Query query = getSession().createQuery("from Currency where mnemoCode = COALESCE(:mnemoCode,mnemoCode) ");
         query.setParameter("mnemoCode", entity.getMnemoCode());
         return (List<Currency>) query.list();
     }
+
+
 
     @Override
     public Currency findEntityByPK(Currency entity) {

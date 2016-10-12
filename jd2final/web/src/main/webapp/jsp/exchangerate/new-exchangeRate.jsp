@@ -1,79 +1,97 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
-    <script src="<c:url value="/js/jquery-1.12.4.min.js" />"></script>
-    <script src="<c:url value="/js/bootstrap.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.12.4.min.js" />"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 <body>
 <div class="container">
-    <form action="controller" method="post" role="form"
-          data-toggle="validator">
+    <s:form id="exchangeRateForm" name="exchangeRateForm" action="insertExchangeRate" modelAttribute="exchangeRate"
+            data-toggle="validator">
+    data-toggle="validator">
 
 
-        <c:if test="${empty action}">
-            <c:set var="action" value="addExchangeRate"/>
-        </c:if>
+    <c:if test="${empty action}">
+        <c:set var="action" value="addExchangeRate"/>
+    </c:if>
 
 
-        <c:choose>
-            <c:when test="${empty command}">
-                <c:set var="command" value="ADDEXCHANGERATE"/>
-            </c:when>
-            <c:when test="${command=='NEWEXCHANGERATE'}">
-                <c:set var="command" value="ADDEXCHANGERATE"/>
-            </c:when>
-        </c:choose>
+    <c:choose>
+        <c:when test="${empty command}">
+            <c:set var="command" value="ADDEXCHANGERATE"/>
+        </c:when>
+        <c:when test="${command=='NEWEXCHANGERATE'}">
+            <c:set var="command" value="ADDEXCHANGERATE"/>
+        </c:when>
+    </c:choose>
 
 
-        <input type="hidden" id="command" name="command" value="${command}">
-        <input type="hidden" id="exchangeRateID" name="exchangeRateID" value="${exchangeRate.id}">
-        <input type="hidden" id="source" name="source" value="${source}">
-        <h2>Exchange rate</h2>
-        <c:if test="${not empty error}">
-            <div class="alert alert-success">
-                    ${error}
-            </div>
-        </c:if>
-        <c:if test="${not empty mesage}">
-            <div class="alert alert-success">
-                    ${mesage}
-            </div>
-        </c:if>
-        <div class="form-group col-xs-6">
-            <label for="id" class="control-label col-xs-6">Id:</label>
-            <input
-                    type="text" name="id" id="id" class="form-control"
-                    value="${exchangeRate.getId()}"
-                    readonly/>
-            <label for="rateDate" class="control-label col-xs-6">Rate date:</label>
-            <input type="text" name="ratehDate" id="rateDate" placeholder="dd.MM.yyyy"
-                   class="form-control" value="${exchangeRate.rateDate}"
-                   required="true"/>
-            <label for="rate" class="control-label col-xs-6">Rate:</label>
-            <input
-                    type="text" name="rate" id="rate" class="form-control"
-                    value="${exchangeRate.rate}" required="true"/>
-            <label for="currencyId"
-                   class="control-label col-xs-6">Currency:</label>
-            <select name="currencyId"
-                    id="currencyId" class="form-control">
-                <c:forEach items="${currencies}" var="currencies">
-                    <option value="${currencies.getId()}" ${currencies.getId() == exchangeRate.currencyID ? 'selected="selected"' : ''}>${currencies.getName()}</option>
-                </c:forEach>
-            </select>
-            <label for="targetCurrencyId"
-                   class="control-label col-xs-6">Target currency:</label>
-            <select name="targetCurrencyId"
-                    id="targetCurrencyId" class="form-control">
-                <c:forEach items="${currencies}" var="currencies">
-                    <option value="${currencies.getId()}" ${currencies.getId() == exchangeRate.targetCurrencyID ? 'selected="selected"' : ''}>${currencies.getName()}</option>
-                </c:forEach>
-            </select>
-            <br></br>
-            <button type="submit" class="btn btn-primary  btn-md">Accept</button>
+    <input type="hidden" id="command" name="command" value="${command}">
+    <input type="hidden" id="exchangeRateID" name="exchangeRateID" value="${exchangeRate.id}">
+    <input type="hidden" id="source" name="source" value="${source}">
+    <h2><spring:message code="exchangerate.title"/></h2>
+    <c:if test="${not empty error}">
+        <div class="alert alert-success">
+            <spring:message code="${error}"/>
         </div>
-    </form>
+    </c:if>
+    <c:if test="${not empty mesage}">
+        <div class="alert alert-success">
+            <spring:message code="${message}"/>
+        </div>
+    </c:if>
+    <div class="form-group col-xs-6">
+        <label for="id" class="control-label col-xs-6">Id:</label>
+        <s:errors path="id" cssStyle="color: red"/>
+        <s:input type="text" name="id" id="id" class="form-control" readonly="true" path="id"/>
+
+        <label for="rateDate" class="control-label col-xs-6">Rate date:</label>
+        <s:errors path="rateDate" cssStyle="color: red"/>
+        <s:input type="text" name="rateDate" id="rateDate" class="form-control" path="rateDate" required="true"/>
+
+
+        <label for="rate" class="control-label col-xs-6">Rate:</label>
+        <s:errors path="rate" cssStyle="color: red"/>
+        <s:input type="text" name="rate" id="rate" class="form-control" path="rate" required="true"/>
+
+        <label for="currencyId"
+               class="control-label col-xs-6">Currency:</label>
+        <s:errors path="currencyID" cssStyle="color: red"/>
+        <s:select id="currencyId" path="currencyID"
+        class="form-control" required="true">
+        <c:forEach items="${currencies}" var="currencies">
+
+            <option value="${currencies.getId()}" ${currencies.getId() == exchangeRate.currencyID ? 'selected="selected"' : ''}>${currencies.getName()}</option>
+
+        </c:forEach>
+        </s:select>
+
+
+
+
+
+
+        <label for="targetCurrencyId"
+               class="control-label col-xs-6">Target currency:</label>
+        <s:errors path="targetCurrencyID" cssStyle="color: red"/>
+        <s:select id="targetCurrencyId" path="targetCurrencyID"
+                  class="form-control" required="true">
+            <c:forEach items="${currencies}" var="currencies">
+
+                <option value="${currencies.getId()}" ${currencies.getId() == exchangeRate.targetCurrencyID ? 'selected="selected"' : ''}>${currencies.getName()}</option>
+
+            </c:forEach>
+        </s:select>
+
+
+        <br></br>
+        <button type="submit" class="btn btn-primary  btn-md" name = "action1" value="Action1"><spring:message code="label.accept"/></button>
+        <button type="cancel" class="btn btn-md" name = "action2" value="Action2"><spring:message code="label.cancel"/></button>
+    </div>
+    </s:form>
 </div>
 </body>
 </html>

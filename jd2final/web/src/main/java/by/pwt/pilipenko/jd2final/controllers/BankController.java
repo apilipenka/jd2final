@@ -43,11 +43,13 @@ public class BankController {
                 httpSession.setAttribute("message", "bank.update.success");
                 if (bank == null) {
                     bank = new Bank();
-                    bank.setName(bankVO.getName());
-                    bank.setUNN(bankVO.getUNN());
+
 
                     httpSession.setAttribute("message", "bank.add.success");
                 }
+
+                bank.setName(bankVO.getName());
+                bank.setUNN(bankVO.getUNN());
                 bankService.updateEntity(bank);
 
 

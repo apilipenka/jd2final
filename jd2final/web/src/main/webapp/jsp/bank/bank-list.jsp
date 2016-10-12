@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <html>
 <head>
     <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
@@ -51,7 +53,7 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="new-bank?bankID=${bank.id}">${bank.id}</a>
+                                <a href="editbank?bankID=${bank.id}">${bank.id}</a>
                             </td>
                             <td>${bank.name}</td>
                             <td>${bank.UNN}</td>
