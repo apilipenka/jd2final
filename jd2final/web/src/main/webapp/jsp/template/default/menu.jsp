@@ -19,7 +19,7 @@
 
                 <li><a href="${pageContext.request.contextPath}/controller?command=USERROLELIST">Edit user roles</a>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=USERLIST">Edit users</a></li>
+                <li><a href="${pageContext.request.contextPath}/user-list">Edit users</a></li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=COMMANDLIST">Edit commands</a></li>
                 <li><a href="${pageContext.request.contextPath}/controller?command=USERROLECOMMANDLIST">Edit user role
                     commands</a></li>

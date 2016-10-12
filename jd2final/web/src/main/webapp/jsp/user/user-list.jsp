@@ -1,42 +1,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="s" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <html>
 <head>
-    <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />">
-    <script src="<c:url value="/js/jquery-1.12.4.min.js" />"></script>
-    <script src="<c:url value="/js/bootstrap.min.js" />"></script>
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />">
+    <script src="<c:url value="/resources/js/jquery-1.12.4.min.js" />"></script>
+    <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
 
 <body>
 <div class="container">
-    <h2>Users</h2>
-    <ul>
-        <li class="dropdown" style="list-style: none;">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu<b class="caret"></b></a>
-            <ul class="dropdown-menu">
+    <h2><spring:message code="users.title"/></h2>
 
-
-                <c:forEach items="${sessionScope.user.getUserRole().getCommands()}" var="command">
-                    <li><a href="${pageContext.request.contextPath}/${command.getUrl()}">${command.getLabel()}</a>
-                    </li>
-                </c:forEach>
-
-                <li class="divider"></li>
-                <li><a href="${pageContext.request.contextPath}/controller?command=logout">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
     <!--Search Form -->
-    <form action="controller" method="get" id="seachUserForm" role="form">
+    <form action="user-list" method="get" id="seachUserForm" role="form">
         <input type="hidden" id="command" name="command" value="USERLIST">
         <div class="form-group col-xs-5">
             <input type="text" name="userName" id="userName" class="form-control"
-                   placeholder="Type the Name or Last Name of the user"/>
+                   placeholder="<spring:message code="placeholder.usersearch"/>"/>
         </div>
         <button type="submit" class="btn btn-info">
-            <span class="glyphicon glyphicon-search"></span> Search
+            <span class="glyphicon glyphicon-search"></span> <spring:message code="label.search"/>
         </button>
         <br></br>
         <br></br>
@@ -44,7 +32,7 @@
 
     <c:if test="${not empty message}">
         <div class="alert alert-success">
-                ${message}
+            <spring:message code="${message}"/>
         </div>
     </c:if>
     <form action="controller" method="post" id="userForm" role="form">
@@ -56,13 +44,13 @@
                     <thead>
                     <tr>
                         <td>#</td>
-                        <td>Login</td>
-                        <td>First name</td>
-                        <td>Last name</td>
-                        <td>Password</td>
-                        <td>Personal number</td>
-                        <td>User role</td>
-                        <td>Birth date</td>
+                        <td><spring:message code="label.Login"/></td>
+                        <td><spring:message code="label.firstname"/></td>
+                        <td><spring:message code="label.lastname"/></td>
+                        <td><spring:message code="label.password"/></td>
+                        <td><spring:message code="label.personalnumber"/></td>
+                        <td><spring:message code="label.role"/></td>
+                        <td><spring:message code="label.birthdate"/></td>
                         <td></td>
                     </tr>
                     </thead>
@@ -73,7 +61,7 @@
                         </c:if>
                         <tr class="${classSucess}">
                             <td>
-                                <a href="controller?userID=${user.id}&command=EDITUSER&source=userlist">${user.id}</a>
+                                <a href="edituser?userID=${user.id}&command=userlist">${user.id}</a>
                             </td>
                             <td>${user.login}</td>
                             <td>${user.firstName}</td>
@@ -83,7 +71,7 @@
                             <td>${user.userRoleName}</td>
                             <td>${user.birthDate}</td>
                             <td>
-                                <a href="${pageContext.request.contextPath}/controller?command=REMOVEUSER&userID=${user.id}">
+                                <a href="${pageContext.request.contextPath}/deleteuser?userID=${user.id}">
                                     <span class="glyphicon glyphicon-trash"/>
                                 </a>
 
@@ -95,14 +83,14 @@
             <c:otherwise>
                 <br>
                 <div class="alert alert-info">
-                    No people found matching your search criteria
+                    <spring:message code="label.usernotfound"/>
                 </div>
             </c:otherwise>
         </c:choose>
     </form>
     <form action="${pageContext.request.contextPath}/user/new-user.jsp?source=UserList">
         <br></br>
-        <button type="submit" class="btn btn-primary  btn-md">New user</button>
+        <button type="submit" class="btn btn-primary  btn-md"><spring:message code="label.newuser"/></button>
     </form>
 </div>
 </body>

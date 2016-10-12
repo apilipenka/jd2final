@@ -37,7 +37,7 @@ public class LoginLogoutController {
 
     @RequestMapping(value="/loginError", method = RequestMethod.GET)
     public String loginError(ModelMap model) {
-        model.addAttribute("error", "Wrong login or password");
+        model.addAttribute("error", "login.error");
         return "login";
 
     }
